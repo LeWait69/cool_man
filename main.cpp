@@ -1,29 +1,52 @@
 #include <Servo.h>
 
-Servo myServo;  // Создаём объект для серво
+Servo ser[5];
+int pin[5] = {3, 4, 5, 6, 7};
+int bac[5] = {90, 45, 90, 180, 0};
+//int fr[5] = {45, 70, 90, };
 
-int servoPin = 2; // Пин, к которому подключён сигнальный провод
+void back(){
+  for(int i = 0; i < 5; i++){
+    ser[i].attach(pin[i]);
+    ser[i].write(bac[i]);
+  }
+}
 
 void setup() {
-  myServo.attach(servoPin); // Привязываем серво к пину
-  myServo.write(0);         // Устанавливаем начальное положение в 0 градусов
-  delay(1000);              // Ждём, пока серво встанет в позицию
+  Serial.begin(9600);
+  back();
+  delay(5000);
+}
+
+void wait(){
+  while(1){
+    delay(1000);
+  }
+}
+
+void first(){
+  ser[0].write(45);
+  ser[1].write(70);
+  delay(1500);
+  ser[4].write(90);
+  delay(1000);
+  ser[3].write(90);
+}
+void second(){
+  ser[0].write(135);
+  ser[1].write(70);
+  ser[3].write(180);
+  delay(1500);
+  ser[4].write(0);
+  delay(1500);
+  ser[3].write(180);
 }
 
 void loop() {
-  // Плавно поворачиваем от 0 до 180 градусов
-  for (int angle = 0; angle <= 180; angle++) {
-    myServo.write(angle);
-    delay(15); // Небольшая задержка для плавности (для MG996R можно 10-15 мс)
-  }
-  
-  delay(1000); // Пауза перед движением назад
-
-  // Плавно возвращаем от 180 до 0 градусов
-  for (int angle = 180; angle >= 0; angle--) {
-    myServo.write(angle);
-    delay(15);
-  }
-  
-  delay(1000);
+  first();
+  delay(3000);
+  second();
+  delay(3000);
+  back();
+  delay(5000);
 }
