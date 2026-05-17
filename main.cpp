@@ -2,8 +2,8 @@
 
 Servo ser[5];
 int pin[5] = {3, 4, 5, 6, 7};
-int bac[5] = {90, 45, 90, 180, 0};
-//int fr[5] = {45, 70, 90, };
+int bac[5] = {90, 45, 0, 180, 0};
+//int tes[5] = {90, 90, 90, 90, 90};
 
 void back(){
   for(int i = 0; i < 5; i++){
@@ -12,16 +12,18 @@ void back(){
   }
 }
 
-void setup() {
+/*
+void test(){
+  for(int i = 0; i < 5; i++){
+    ser[i].write(tes[i]);
+  }
+}
+*/
+
+void setup(){
   Serial.begin(9600);
   back();
   delay(5000);
-}
-
-void wait(){
-  while(1){
-    delay(1000);
-  }
 }
 
 void first(){
@@ -29,9 +31,10 @@ void first(){
   ser[1].write(70);
   delay(1500);
   ser[4].write(90);
-  delay(1000);
+  delay(1500);
   ser[3].write(90);
 }
+
 void second(){
   ser[0].write(135);
   ser[1].write(70);
@@ -48,5 +51,6 @@ void loop() {
   second();
   delay(3000);
   back();
-  delay(5000);
+  //test();
+  delay(3000);
 }
