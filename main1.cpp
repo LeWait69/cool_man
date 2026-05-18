@@ -3,27 +3,27 @@
 Servo ser[5];
 int pin[5] = {3, 4, 5, 6, 7};
 int bac[5] = {90, 45, 0, 180, 0};
-//int tes[5] = {90, 90, 90, 90, 90};
 
 void back(){
   for(int i = 0; i < 5; i++){
-    ser[i].attach(pin[i]);
     ser[i].write(bac[i]);
   }
 }
 
-/*
-void test(){
-  for(int i = 0; i < 5; i++){
-    ser[i].write(tes[i]);
-  }
-}
-*/
-
 void setup(){
   Serial.begin(9600);
+  for(int i = 0; i < 5; i++){
+    ser[i].attach(pin[i]);
+  }
   back();
   delay(5000);
+}
+
+void wait() {
+  while (Serial.read() != 1){
+    delay(10);
+  }
+    return;
 }
 
 void first(){
@@ -51,6 +51,7 @@ void loop() {
   second();
   delay(3000);
   back();
-  //test();
+  Serial.write(1);
   delay(3000);
+  wait();
 }
