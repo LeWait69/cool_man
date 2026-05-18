@@ -20,10 +20,10 @@ void setup(){
 }
 
 void wait() {
-  while (Serial.read() != 1){
+  while (Serial.read() != 1) {
     delay(10);
   }
-    return;
+  return;
 }
 
 void first(){
@@ -54,4 +54,5 @@ void loop() {
   Serial.write(1);
   delay(3000);
   wait();
+}
 }
